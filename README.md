@@ -11,4 +11,4 @@ $$
 
 Since offsets point to the _end-point_ of each bag, we can use mini-batches with a variable number of embeddings, and make sure that the offsets array specifies the last bag to end before the padding of each sample.
 
-On top, we have implemented the classical Factorization Machine model in the `FM` class, and a fully-vectorized version of a field-aware factorization machine in the `FFM` class.
+On top, we have implemented the classical Factorization Machine model in the `WeightedFM` class, and a fully-vectorized version of a field-aware factorization machine in the `WeightedFFM` class.
