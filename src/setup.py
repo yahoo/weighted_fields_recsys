@@ -1,9 +1,5 @@
 import setuptools
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
-
 setuptools.setup(
      name='weighted_fields_recsys',
      version='0.1',
@@ -17,10 +13,8 @@ setuptools.setup(
      """,
      long_description_content_type="text/markdown",
      url="https://github.com/yahoo/weighted_fields_recsys",
-     packages=['weighted_fields_recsys'],
-     install_requires=[
-         'torch>=1.13.1'
-     ],
+     packages=['wfm'],
+     install_requires=['torch>=1.13.1'],
      classifiers=[
          "Programming Language :: Python :: 3",
          "License :: OSI Approved :: MIT License",

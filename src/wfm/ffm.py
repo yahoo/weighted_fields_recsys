@@ -1,5 +1,5 @@
 import torch
-from weighted_embedding_bag import WeightedEmbeddingBag
+from .weighted_embedding_bag import WeightedEmbeddingBag
 import math
 
 
