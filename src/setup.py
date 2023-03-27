@@ -3,7 +3,7 @@ import setuptools
 setuptools.setup(
      name='weighted_fields_recsys',
      version='0.1',
-     author="Alex Shtoff",
+     author="Alex Shtoff, Elie Abboud",
      author_email="ashtoff@yahooinc.com",
      description="PyTorch classes for recommender systems with weighted multi-value fields",
      long_description="""
