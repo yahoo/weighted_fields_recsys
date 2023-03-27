@@ -4,6 +4,22 @@ import math
 
 
 class WeightedFFM(torch.nn.Module):
+    r"""
+    A field-aware factorization machine (see Juan et al. 2016) allowing weighted multi-value fields, based on the
+    :class:`WeightedEmbeddingBag` module.
+
+    :param num_features: The number of features of the factorization machine
+    :type num_features: int
+
+    :param field_dim: The dimension of the embedding vector's field overlap block. The embedding
+    vectors will be initialized to a uniformly-distributed vector in range [0, 1/sqrt(field_dim)].
+    :type field_dim: int
+
+    :param num_fields: The number of fields.
+    :type num_fields: int
+
+    :param emb_kwargs: additional args passed to the :class:`WeightedEmbeddingBag` objects.
+    """
     def __init__(self, num_features: int, field_dim: int, num_fields: int, **emb_kwargs):
         super().__init__()
         self.field_dim = field_dim
@@ -40,13 +56,20 @@ class WeightedFFM(torch.nn.Module):
                 fields: torch.Tensor):
         r"""
         Returns FFM scores corresponding to a mini-batch of weighted sums of embedding bags. The scores
-        are computed according to the full FFM score function, including the linear and bias terms.
+        are computed according to the full FFM score function, including the linear and bias terms. The indices,
+        weights, and offsets parameters are as in the :class:`WeightedEmbeddingBag` class.
 
-        Args:
-            indices (Tensor): BxN matrix of embedding indices in the mini-batch
-            weights (Tensor): BxN matrix of corresponding embedding weights
-            offsets (Tensor): BxM matrix of bag end-point offsets, as in ::see WeightedEmbeddingBag::
-            fields (Tensor): BxM matrix of the field each bag corresponds to.
+        :param indices: BxN matrix of embedding indices in the mini-batch
+        :type indices: torch.Tensor
+
+        :param weights: BxN matrix of corresponding embedding weights
+        :type weights: torch.Tensor
+
+        :param offsets: BxM matrix of bag end-point offsets
+        :type offsets: torch.Tensor
+
+        :param fields: BxM matrix of the field each bag corresponds to.
+        :type fields: torch.Tensor
         """
         vectors = self.vectors(indices, weights, offsets)
         biases = self.biases(indices, weights, offsets)

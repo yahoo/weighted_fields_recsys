@@ -30,11 +30,10 @@ class WeightedFM(torch.nn.Module):
 
     def forward(self, indices: torch.Tensor, weights: torch.Tensor, offsets: torch.Tensor):
         r"""
+        Forward function of the factorization machine model. Parameters are a mini-batch of size B,
+        identical to :class:`WeightedEmbeddingBag`
 
-        :param indices:
-        :param weights:
-        :param offsets:
-        :return:
+        :return: A tensor of length B containing factorization machine scores.
         """
         vectors = self.vectors(indices, weights, offsets)
         biases = self.biases(indices, weights, offsets).squeeze()
@@ -42,6 +41,6 @@ class WeightedFM(torch.nn.Module):
         square_of_sum = vectors.sum(dim=1).square()
         sum_of_square = vectors.square().sum(dim=1)
         pairwise = 0.5 * (square_of_sum - sum_of_square).sum(dim=1)
-        linear = biases.squeeze().sum(dim=1)
+        linear = biases.sum(dim=1)
 
         return pairwise + linear + self.bias

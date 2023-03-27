@@ -33,7 +33,8 @@ class WeightedEmbeddingBag(nn.Module):
         :param per_sample_weights: BxN matrix, where each row contaisn per-sample embedding weights.
         :type per_sample_weights: torch.Tensor
 
-        :param offsets: BxM offsets pointing to end-of-bag indices inside each sample.
+        :param offsets: BxM offsets pointing to end-of-bag indices inside each sample. Note, that this differs from
+                        torch.nn.EmbeddingBag, where offsets point to the start-of-bag indices.
         :type offsets: torch.Tensor
 
         :return: BxM tensor of weighted sums of embedding bags.
