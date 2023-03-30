@@ -16,9 +16,13 @@ class WeightedEmbeddingBag(nn.Module):
 
     :param emb_kwargs: parameter dict for the :class:`nn.Embedding` constructor.
     """
-    def __init__(self, num_embeddings, embedding_dim, **emb_kwargs):
+    def __init__(self, num_embeddings, embedding_dim, device=None, dtype=None, _freeze=False, **emb_kwargs):
         super().__init__()
-        self.emb = nn.Embedding(num_embeddings, embedding_dim, **emb_kwargs)
+        factory_kwargs = {'device': device, 'dtype': dtype}
+        self.weight = nn.Parameter(torch.empty((num_embeddings, embedding_dim), **factory_kwargs),
+                                    requires_grad=not _freeze)
+        self.emb_kwargs = emb_kwargs
+        torch.nn.init.normal_(self.weight)
 
     def forward(self, input, per_sample_weights, offsets):
         r"""
@@ -40,7 +44,7 @@ class WeightedEmbeddingBag(nn.Module):
         :return: BxM tensor of weighted sums of embedding bags.
         :rtype: torch.Tensor
         """
-        embeddings = self.emb(input)
+        embeddings = torch.nn.functional.embedding(input, self.weight, **self.emb_kwargs)
         weighted_embeddings = embeddings * per_sample_weights.unsqueeze(2)
         padded_summed = f.pad(weighted_embeddings, [0, 0, 1, 0, 0, 0]).cumsum(dim=1)
         padded_offsets = f.pad(offsets, [1, 0, 0, 0], value=-1) + 1
