@@ -25,8 +25,8 @@ class WeightedFM(torch.nn.Module):
 
         vec_init_scale = 1. / math.sqrt(embedding_dim)
         with torch.no_grad():
-            torch.nn.init.uniform_(self.vectors.emb, 0, vec_init_scale)
-            torch.nn.init.zeros_(self.biases.emb)
+            torch.nn.init.uniform_(self.vectors.weight, 0, vec_init_scale)
+            torch.nn.init.zeros_(self.biases.weight)
 
     def forward(self, indices: torch.Tensor, weights: torch.Tensor, offsets: torch.Tensor):
         r"""

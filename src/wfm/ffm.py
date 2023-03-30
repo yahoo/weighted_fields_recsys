@@ -35,8 +35,8 @@ class WeightedFFM(torch.nn.Module):
 
         vec_init_scale = 1. / math.sqrt(field_dim)
         with torch.no_grad():
-            torch.nn.init.uniform_(self.vectors.emb, 0, vec_init_scale)
-            torch.nn.init.zeros_(self.biases.emb)
+            torch.nn.init.uniform_(self.vectors.weight, 0, vec_init_scale)
+            torch.nn.init.zeros_(self.biases.weight)
 
     def _fast_ffm_pairwise(self, batch_size, vectors, fields):
         fields_i = fields[:, self.i_indices]
