@@ -44,3 +44,4 @@ class WeightedFM(torch.nn.Module):
         linear = biases.sum(dim=1)
 
         return pairwise + linear + self.bias
+
