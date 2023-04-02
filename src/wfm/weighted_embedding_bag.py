@@ -24,7 +24,7 @@ class WeightedEmbeddingBag(nn.Module):
         self.emb_kwargs = emb_kwargs
         torch.nn.init.normal_(self.weight)
 
-    def forward(self, input, per_sample_weights, offsets):
+    def forward(self, input, offsets, per_sample_weights):
         r"""
         Computed weighted sums of input embeddings in each bag, assuming each mini-batch comprises the same
         number of embeddings, weights, and bags. Variable number of embeddings and their corresponding weights
@@ -34,12 +34,12 @@ class WeightedEmbeddingBag(nn.Module):
         :param input: BxN matrix, where each row contains per-sample embedding indices.
         :type input: torch.Tensor
 
-        :param per_sample_weights: BxN matrix, where each row contaisn per-sample embedding weights.
-        :type per_sample_weights: torch.Tensor
-
         :param offsets: BxM offsets pointing to end-of-bag indices inside each sample. Note, that this differs from
                         torch.nn.EmbeddingBag, where offsets point to the start-of-bag indices.
         :type offsets: torch.Tensor
+
+        :param per_sample_weights: BxN matrix, where each row contaisn per-sample embedding weights.
+        :type per_sample_weights: torch.Tensor
 
         :return: BxM tensor of weighted sums of embedding bags.
         :rtype: torch.Tensor
@@ -60,3 +60,4 @@ class WeightedEmbeddingBag(nn.Module):
             return input[i, j, k]
 
         return batch_gather(padded_summed, padded_offsets[:, 1:]) - batch_gather(padded_summed, padded_offsets[:, :-1])
+
