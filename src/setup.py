@@ -1,3 +1,5 @@
+# Copyright 2023, Yahoo.
+
 import setuptools
 
 setuptools.setup(

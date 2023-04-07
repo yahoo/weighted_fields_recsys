@@ -1,3 +1,5 @@
+# Copyright 2023, Yahoo.
+
 import torch
 from .weighted_embedding_bag import WeightedEmbeddingBag
 import math
