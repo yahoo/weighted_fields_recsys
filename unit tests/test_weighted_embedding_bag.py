@@ -1,3 +1,5 @@
+# Copyright 2023, Yahoo.
+
 from unittest import TestCase
 from src.wfm.weighted_embedding_bag import WeightedEmbeddingBag
 import torch
