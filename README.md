@@ -5,8 +5,9 @@ The basic component of this package is the `WeightedEmbeddingBag` class, which i
 ![WeightedEmbeddingBag](doc/weighted_embedding_bag.png)
 
 The indices array selects embeddings, the weights array is used to multiply embeddings by a corresponding weight, and the offsets array defines the endpoints of each bag. In the example above, we select the embedding vectors $(v_0, v_4, v_2, v_5)$. They will be multiplied by the weights $(0.2, 0.1, 0.9, 0.8)$ and grouped into three bags, the first includes only $v_0$, the second only $v_4$, and the third includes $v_2$ and $v_5$. Consequently, the output will be
+
 $$
-0.2 \cdot v_0, 0.1 \cdot v_4, 0.9 \cdot v_2 + 0.8 \cdot v_5
+0.2 \cdot v_0,\quad 0.1 \cdot v_4,\quad 0.9 \cdot v_2 + 0.8 \cdot v_5
 $$
 
 Since offsets point to the _end-point_ of each bag, we can use mini-batches with a variable number of embeddings, and make sure that the offsets array specifies the last bag to end before the padding of each sample.
