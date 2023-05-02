@@ -1,4 +1,4 @@
-# Weighted field embeddings for recommender systems
+# Fullt-vectorized weighted field embedding bags for recommender systems
 PyTorch embedding bag module and factorization machine models for multi-value fields with weights per value. The implementations are *fully vectorized*. For example, imagine a data-set of movies where the "genres" column may contain a list of genres with corresponding weights representing a measure of confidence in the movie belonging to the genre.
 
 The basic component of this package is the `WeightedEmbeddingBag` class, which is similar to the PyTorch `torch.nn.EmbeddingBag` class, but supports weights and bag aggregation in mini-batches. It receives three parameters: indices, offsets, and weights, depicted below.
